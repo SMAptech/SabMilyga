@@ -25,19 +25,12 @@
         <div class="container">
             <h1>CATEGORY</h1>
             <div class="row">
-                <!-- Modal trigger button -->
-                @if(session()->has("success"))
-                      <p class="alert alert-success">{{ session("success") }}</p>  
-                @endif
-                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
-                Add Category
-                </button>
+              
 
                 <!-- Modal Body -->
                 <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                   <form method = "post" action="{{ url('add.category') }}" id = "categoryForm" enctype="multipart/form-data">
+               
+                   <form method = "post" action="update.category/{{ $category->id }} " id = "categoryForm" enctype="multipart/form-data">
                     @csrf
                     <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> -->
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
@@ -50,10 +43,11 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" name="category_name" id="" class="form-control" placeholder = "name">
+                                    <input type="text" value="{{ $category->category_name }}" name="category_name" id="" class="form-control" placeholder = "name">
                                     <br>
-                                    <input type="text" name="description" id="" class="form-control" placeholder = "description">
+                                    <input type="text" value="{{ $category->description }}" name="description" id="" class="form-control" placeholder = "description">
                                     <br>
+                                    <img src="c/{{ $category->image }}" width="60px" height="60px"  alt="">
                                     <input type="file" name="image" id="" class="form-control" >
                                     <br>
                                 </div>
@@ -61,50 +55,18 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                         Close
                                     </button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </div>
                    </form>
-                </div>
+                
 
                 <!-- Optional: Place to the bottom of scripts -->
        
 
             </div>
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-primary">
-                        <thead>
-                            <tr>
-                                <th scope="col">id </th>
-                                <th scope="col">category name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Image</th>
-                                <th>Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                           @foreach ($categories as $category)
-                                <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ $category->description }}</td>
-                                    <td><img src="c/{{ $category->image }}" width="60px" height="60px" alt=""></td>
-                                    <td>
-                                        <a href="edit/{{$category->id}}"  class="btn btn-primary">Edit</a>
-                                        <a href="delete/{{$category->id}}" class="btn btn-danger">Delete</a>
-
-                                    </td>
-                                </tr>
-                           @endforeach 
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
+           
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
